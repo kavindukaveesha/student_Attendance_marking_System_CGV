@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feature Sandbox · Attendance System</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <script>
+    (function () {
+      const _warn = console.warn.bind(console);
+      console.warn = function () {
+        if (arguments[0] && String(arguments[0]).includes("cdn.tailwindcss.com")) return;
+        return _warn.apply(this, arguments);
+      };
+    })();
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'ui-monospace', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eef4fb', 100: '#d7e3f2', 200: '#aec7e5',
+              500: '#1E3A5F', 600: '#183050', 700: '#12263f', 800: '#0d1c2f',
+            },
+            accent: {
+              50: '#ecfdf5', 500: '#059669', 600: '#047857', 700: '#065f46',
+            },
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="stylesheet" href="css/style.css?v=2" />
+</head>
+
+<body class="bg-slate-50 text-slate-900 font-sans antialiased">
+
+  <header class="sticky top-0 z-40 bg-brand-500 text-white shadow-sm">
+    <div class="max-w-[1600px] mx-auto px-6 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.75" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-sm font-semibold tracking-tight">Feature Sandbox</h1>
+          <p class="text-[11px] text-brand-100">Standalone demos for F1 – F5 · one owner per module</p>
+        </div>
+      </div>
+      <nav class="hidden md:flex items-center gap-1 text-xs">
+        <a href="/" class="px-3 py-1.5 rounded-md hover:bg-white/10 transition-colors">← Dashboard</a>
+        <a href="#f1" class="px-3 py-1.5 rounded-md hover:bg-white/10 transition-colors">F1</a>
+        <a href="#f2" class="px-3 py-1.5 rounded-md hover:bg-white/10 transition-colors">F2</a>
+        <a href="#f3" class="px-3 py-1.5 rounded-md hover:bg-white/10 transition-colors">F3</a>
+        <a href="#f4" class="px-3 py-1.5 rounded-md hover:bg-white/10 transition-colors">F4</a>
+        <a href="#f5" class="px-3 py-1.5 rounded-md hover:bg-white/10 transition-colors">F5</a>
+        <a href="/docs" target="_blank"
+           class="ml-2 px-3 py-1.5 rounded-md bg-accent-500 hover:bg-accent-600 transition-colors font-medium">
+          API Docs
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <div id="banner" class="hidden max-w-[1600px] mx-auto mt-4 px-4 py-3 rounded-lg text-sm"></div>
+
+  <main class="max-w-[1600px] mx-auto px-4 lg:px-6 py-5 space-y-4">
+
+    <!-- ================================ F1 ================================ -->
+    <section id="f1" class="bg-white rounded-2xl border border-slate-200 shadow-sm">
+      <header class="px-5 py-3 border-b border-slate-100 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="w-6 h-6 rounded-md bg-brand-50 text-brand-500 grid place-items-center text-[11px] font-semibold">F1</span>
+          <h2 class="text-sm font-semibold">Image preprocessing · <span class="text-slate-500 font-normal">Member 1</span></h2>
+        </div>
+        <code class="text-[11px] text-slate-400 hidden md:block">POST /api/features/image-processing/preview</code>
+      </header>
+      <div class="p-5">
+        <p class="text-xs text-slate-500 mb-3">Loads the photo, converts to greyscale, and applies Gaussian smoothing.</p>
+        <div class="flex flex-wrap items-center gap-3">
+          <input type="file" id="f1File" accept="image/*" class="text-sm text-slate-700 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-brand-50 file:text-brand-600 file:font-medium hover:file:bg-brand-100 file:cursor-pointer cursor-pointer" />
+          <button id="f1Run" class="bg-accent-500 hover:bg-accent-600 focus:ring-2 focus:ring-accent-500 focus:ring-offset-2 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors">Run F1</button>
+        </div>
+        <div id="f1Out" class="mt-4"></div>
+      </div>
+    </section>
+
+    <!-- ================================ F2 ================================ -->
+    <section id="f2" class="bg-white rounded-2xl border border-slate-200 shadow-sm">
+      <header class="px-5 py-3 border-b border-slate-100 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="w-6 h-6 rounded-md bg-brand-50 text-brand-500 grid place-items-center text-[11px] font-semibold">F2</span>
+          <h2 class="text-sm font-semibold">Geometric correction · <span class="text-slate-500 font-normal">Member 2</span></h2>
+        </div>
+        <code class="text-[11px] text-slate-400 hidden md:block">POST /api/features/transforms/deskew</code>
+      </header>
+      <div class="p-5">
+        <p class="text-xs text-slate-500 mb-3">Detects skew via Hough lines, rotates, then resizes to 1000 × 1400.</p>
+        <div class="flex flex-wrap items-center gap-3">
+          <input type="file" id="f2File" accept="image/*" class="text-sm text-slate-700 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-brand-50 file:text-brand-600 file:font-medium hover:file:bg-brand-100 file:cursor-pointer cursor-pointer" />
+          <button id="f2Run" class="bg-accent-500 hover:bg-accent-600 focus:ring-2 focus:ring-accent-500 focus:ring-offset-2 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors">Run F2</button>
+        </div>
+        <div id="f2Out" class="mt-4"></div>
+      </div>
+    </section>
+
+    <!-- ================================ F3 ================================ -->
+    <section id="f3" class="bg-white rounded-2xl border border-slate-200 shadow-sm">
+      <header class="px-5 py-3 border-b border-slate-100 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="w-6 h-6 rounded-md bg-brand-50 text-brand-500 grid place-items-center text-[11px] font-semibold">F3</span>
+          <h2 class="text-sm font-semibold">Table &amp; cell segmentation · <span class="text-slate-500 font-normal">Member 3</span></h2>
+        </div>
+        <code class="text-[11px] text-slate-400 hidden md:block">POST /api/features/table-extraction/cells</code>
+      </header>
+      <div class="p-5">
+        <p class="text-xs text-slate-500 mb-3">Binarizes, detects grid lines with morphology, extracts each student's signature cell.</p>
+        <div class="flex flex-wrap items-center gap-3">
+          <input type="file" id="f3File" accept="image/*" class="text-sm text-slate-700 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-brand-50 file:text-brand-600 file:font-medium hover:file:bg-brand-100 file:cursor-pointer cursor-pointer" />
+          <label class="text-xs text-slate-600 flex items-center gap-2">
+            Students:
+            <input type="number" id="f3Num" value="6" min="1" max="50" class="w-16 border border-slate-300 focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 outline-none rounded-lg px-2 py-1 text-sm font-mono" />
+          </label>
+          <button id="f3Run" class="bg-accent-500 hover:bg-accent-600 focus:ring-2 focus:ring-accent-500 focus:ring-offset-2 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors">Run F3</button>
+        </div>
+        <div id="f3Out" class="mt-4"></div>
+      </div>
+    </section>
+
+    <!-- ================================ F4 ================================ -->
+    <section id="f4" class="bg-white rounded-2xl border border-slate-200 shadow-sm">
+      <header class="px-5 py-3 border-b border-slate-100 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="w-6 h-6 rounded-md bg-brand-50 text-brand-500 grid place-items-center text-[11px] font-semibold">F4</span>
+          <h2 class="text-sm font-semibold">Signature detection · <span class="text-slate-500 font-normal">Member 4</span></h2>
+        </div>
+        <code class="text-[11px] text-slate-400 hidden md:block">POST /api/features/signature-detection/check</code>
+      </header>
+      <div class="p-5">
+        <p class="text-xs text-slate-500 mb-3">Binarizes and measures ink ratio. Decides <span class="font-mono">present / absent</span> against a configurable threshold.</p>
+        <div class="flex flex-wrap items-center gap-3">
+          <input type="file" id="f4File" accept="image/*" class="text-sm text-slate-700 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-brand-50 file:text-brand-600 file:font-medium hover:file:bg-brand-100 file:cursor-pointer cursor-pointer" />
+          <button id="f4Run" class="bg-accent-500 hover:bg-accent-600 focus:ring-2 focus:ring-accent-500 focus:ring-offset-2 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors">Run F4</button>
+        </div>
+        <div id="f4Out" class="mt-4"></div>
+      </div>
+    </section>
+
+    <!-- ================================ F5 ================================ -->
+    <section id="f5" class="bg-white rounded-2xl border border-slate-200 shadow-sm">
+      <header class="px-5 py-3 border-b border-slate-100 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="w-6 h-6 rounded-md bg-brand-50 text-brand-500 grid place-items-center text-[11px] font-semibold">F5</span>
+          <h2 class="text-sm font-semibold">Signature recognition · <span class="text-slate-500 font-normal">Member 5</span></h2>
+        </div>
+        <code class="text-[11px] text-slate-400 hidden md:block">POST /api/features/signature-recognition/compare</code>
+      </header>
+      <div class="p-5">
+        <p class="text-xs text-slate-500 mb-3">ORB feature matching between a sample cell and a reference signature. Returns a similarity score in [0, 1].</p>
+        <div class="grid md:grid-cols-2 gap-3 mb-3">
+          <label class="block">
+            <span class="text-xs font-medium text-slate-600 uppercase tracking-wide">Sample (detected)</span>
+            <input type="file" id="f5Sample" accept="image/*" class="mt-2 block w-full text-sm text-slate-700 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-brand-50 file:text-brand-600 file:font-medium hover:file:bg-brand-100 file:cursor-pointer cursor-pointer" />
+          </label>
+          <label class="block">
+            <span class="text-xs font-medium text-slate-600 uppercase tracking-wide">Reference (known-good)</span>
+            <input type="file" id="f5Reference" accept="image/*" class="mt-2 block w-full text-sm text-slate-700 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-brand-50 file:text-brand-600 file:font-medium hover:file:bg-brand-100 file:cursor-pointer cursor-pointer" />
+          </label>
+        </div>
+        <button id="f5Run" class="bg-accent-500 hover:bg-accent-600 focus:ring-2 focus:ring-accent-500 focus:ring-offset-2 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors">Run F5</button>
+        <div id="f5Out" class="mt-4"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-xs text-slate-400 py-8 px-4">
+    Each panel above is owned end-to-end by one group member · commits stay within their folder.
+  </footer>
+
+  <script src="js/api.js?v=2"></script>
+  <script src="js/ui.js?v=2"></script>
+  <script src="js/features.js?v=2"></script>
+</body>
+</html>

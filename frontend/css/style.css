@@ -1,0 +1,34 @@
+/* Small overrides on top of the Tailwind CDN + Inter type. */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;   /* clear the sticky header on anchor jumps */
+}
+
+body {
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
+}
+
+/* Focus ring parity for keyboard users */
+:focus-visible {
+  outline: 2px solid #1E3A5F;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Prevent iOS auto-zoom on inputs (needs >=16px) */
+input, select, textarea, button {
+  font-size: 14px;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}
+
+/* Aspect ratio fallback for older browsers */
+.aspect-\[3\/4\] { aspect-ratio: 3 / 4; }
